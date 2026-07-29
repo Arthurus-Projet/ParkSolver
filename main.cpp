@@ -9,7 +9,6 @@ int main() {
     ParkingClass parkingClass;
     parkingClass.displayParking();
                        
-    std::cout << "Hello world" << std::endl;
     return 0;
 }
 
