@@ -1,20 +1,14 @@
 
 #include <iostream>
+#include "Headers/ParkingClass.h"
 
-
-
+   
 
 int main() {
 
-    uint8_t parking[6][10] = {
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                            };
-
+    ParkingClass parkingClass;
+    parkingClass.displayParking();
+                       
     std::cout << "Hello world" << std::endl;
     return 0;
 }
