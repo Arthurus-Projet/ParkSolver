@@ -8,6 +8,7 @@ class ParkingClass {
 public:
     ParkingClass();
     void displayParking();
+    std::pair<uint8_t, uint8_t> findTheFirstPlace();
 
 private:
     uint8_t parking[6][10];

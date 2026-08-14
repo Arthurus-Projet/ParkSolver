@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Headers/ParkingClass.h"
+#include <utility>
 
 
 
@@ -26,4 +27,28 @@ void ParkingClass::displayParking() {
         }
         std::cout << std::endl;
     }
+}
+
+
+std::pair<uint8_t, uint8_t> ParkingClass::findTheFirstPlace() {
+
+    // find where is the car :
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (parking[i][j] == 9)
+                if (parking[i + 1][j] == 8) {
+                    std::cout << "position found" << std::endl;
+                    std::pair<uint8_t, uint8_t> pos(i, j);
+                    
+                    return pos;
+                    }
+        }
+    }
+    std::pair<uint8_t, uint8_t> p;
+    return p;
+    
+
+
+
+
 }
