@@ -12,6 +12,8 @@ public:
 
 private:
     uint8_t parking[6][10];
+    int rows;
+    int cols;
 };
 
 #endif
