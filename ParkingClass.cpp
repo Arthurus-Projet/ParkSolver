@@ -30,8 +30,8 @@ void ParkingClass::displayParking() {
 }
 
 
-std::pair<uint8_t, uint8_t> ParkingClass::findTheFirstPlace() {
-
+std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>> ParkingClass::findTheFirstPlace() {
+    std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>> p;
     // find where is the car :
     for (int i = 0; i < 6; i++) {
         for (int j = 0; j < 9; j++) {
@@ -39,12 +39,14 @@ std::pair<uint8_t, uint8_t> ParkingClass::findTheFirstPlace() {
                 if (parking[i + 1][j] == 8) {
                     std::cout << "position found" << std::endl;
                     std::pair<uint8_t, uint8_t> pos(i, j);
-                    
-                    return pos;
+                    std::pair<uint8_t, uint8_t> pos_2(i + 1, j);
+                    p.first = pos;
+                    p.second = pos_2;
+                    return p;
                     }
         }
     }
-    std::pair<uint8_t, uint8_t> p;
+
     return p;
     
 
