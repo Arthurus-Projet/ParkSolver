@@ -17,13 +17,13 @@ ParkingClass::ParkingClass() :
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 8, 0, 0, 0, 0},
     {1, 1, 1, 6, 0, 9, 6, 1, 1, 1},
-    {1, 1, 1, 6, 0, 8, 6, 1, 1, 1}
+    {1, 1, 1, 6, 0, 0, 6, 1, 1, 1}
         }, 
     
-    rows{6},
-    cols{10}
+    rows(6),
+    cols(10)
 
 
     {}
@@ -42,48 +42,25 @@ std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>> ParkingClass
 
     std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>> p;
 
+    int dirs_x[] = {-1, 1, 0, 0}; 
+    int dirs_y[] = {0, 0, -1, 1}; 
     // find where is the car :
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             if (parking[i][j] == 9) {
                 std::pair<uint8_t, uint8_t> pos(i, j);
                 p.first = pos;
-                if (i + 1 <= rows) 
-                    if (parking[i + 1][j] == 8) {
-                        std::pair<uint8_t, uint8_t> pos_2(i + 1, j);
-                        p.first = pos;
-                        p.second = pos_2;
-                        return p;
-                        }
 
-                if (i - 1 >= 0) {
-                    if (parking[i - 1][j] == 8) {
-                        std::pair<uint8_t, uint8_t> pos_2(i - 1, j);
-                        p.second = pos_2;
-                        return p;
-                        }
-
+                for (int cpt = 0; cpt < 4; cpt++) {
+                    if (i + dirs_x[cpt] >= 0 && i + dirs_x[cpt] <= rows && i + dirs_y[cpt] >= 0 && i + dirs_y[cpt] <= cols)
+                        if (parking[i + dirs_x[cpt]][j + dirs_y[cpt]] == 8) {
+                                std::pair<uint8_t, uint8_t> pos_2(i + dirs_x[cpt], j + dirs_y[cpt]);
+                                p.first = pos;
+                                p.second = pos_2;
+                                return p;
+                            }
                     }
-
-                if (j + 1 <= cols) {
-                    if (parking[i][j + 1] == 8) {   
-                        std::pair<uint8_t, uint8_t> pos_2(i, j + 1);
-                        p.second = pos_2;
-                        return p;
-                        }
-
-                    }
-
-                if (j - 1 >= 0) {
-                    if (parking[i][j - 1] == 8) {
-                        std::pair<uint8_t, uint8_t> pos_2(i, j - 1);
-                        p.second = pos_2;
-                        return p;
-                        }
-
-                    }
-
-                }
+            }
         }
     }
 
