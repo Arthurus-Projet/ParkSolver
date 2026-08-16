@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Headers/ParkingClass.h"
 #include <utility>
+#include <algorithm>
 
 
 
@@ -17,9 +18,9 @@ ParkingClass::ParkingClass() :
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 8, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {1, 1, 1, 6, 0, 9, 6, 1, 1, 1},
-    {1, 1, 1, 6, 0, 0, 6, 1, 1, 1}
+    {1, 1, 1, 6, 0, 8, 6, 1, 1, 1}
         }, 
     
     rows(6),
@@ -63,8 +64,38 @@ std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>> ParkingClass
             }
         }
     }
-
     return p;
+}
+
+
+
+
+Result ParkingClass::findTheFirstPlaceToPark(uint8_t parking[6][10], int cpt, int x, int y) {
     
+    int dirs_x[] = {-1, 1, 0, 0};
+    int dirs_y[] = {0, 0, -1, 1}; 
+    
+
+    for (int i = 0; i < 4; i++) {
+
+        if (x + dirs_x[i] >= 0 && x + dirs_x[i] <= rows && y + dirs_y[i] >= 0 && y + dirs_y[i] <= cols) {
+            if (parking[y + dirs_y[i]][x + dirs_x[i]] == 0) {
+                return std::min(findTheFirstPlaceToPark(parking, cpt + 1, x + dirs_x[i], y + dirs_y[i]).second);
+            }
+
+            if (parking[y + dirs_y][x + dirs_x] == 1) {
+                std::pair<uint8_t[6][10], int> a;
+                a.first = parking;
+                a.second = cpt;
+                return a;
+            } 
+
+        }
+
+        
+    }
+
+
+    return Result;
 
 }
