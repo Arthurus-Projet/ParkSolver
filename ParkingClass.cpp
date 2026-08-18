@@ -70,32 +70,25 @@ std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>> ParkingClass
 
 
 
-Result ParkingClass::findTheFirstPlaceToPark(uint8_t parking[6][10], int cpt, int x, int y) {
-    
-    int dirs_x[] = {-1, 1, 0, 0};
-    int dirs_y[] = {0, 0, -1, 1}; 
-    
+Result ParkingClass::findTheFirstPlaceToPark(Grid parking, int cpt, int x, int y) {
 
-    for (int i = 0; i < 4; i++) {
+    if (x < 0 || x >= cols || y < 0 || y >= rows || parking[y][x] == 7)
+        return {parking, INT_MAX};
 
-        if (x + dirs_x[i] >= 0 && x + dirs_x[i] <= rows && y + dirs_y[i] >= 0 && y + dirs_y[i] <= cols) {
-            if (parking[y + dirs_y[i]][x + dirs_x[i]] == 0) {
-                return std::min(findTheFirstPlaceToPark(parking, cpt + 1, x + dirs_x[i], y + dirs_y[i]).second);
-            }
+    if (parking[y][x] == 1)
+        return {parking, cpt};
 
-            if (parking[y + dirs_y][x + dirs_x] == 1) {
-                std::pair<uint8_t[6][10], int> a;
-                a.first = parking;
-                a.second = cpt;
-                return a;
-            } 
+    if (parking[y][x] != 0)
+        return {parking, INT_MAX};
 
-        }
+    parking[y][x] = 7;
 
-        
-    }
-
-
-    return Result;
-
+    return std::min({
+        findTheFirstPlaceToPark(parking, cpt + 1, x - 1, y),
+        findTheFirstPlaceToPark(parking, cpt + 1, x + 1, y),
+        findTheFirstPlaceToPark(parking, cpt + 1, x, y - 1),
+        findTheFirstPlaceToPark(parking, cpt + 1, x, y + 1)
+    }, [](const Result& a, const Result& b) {
+        return a.second < b.second;
+    });
 }

@@ -2,6 +2,7 @@
 #define PARKINGCLASS_H
 
 #include <cstdint>
+#include <array>
 
 using Grid = std::array<std::array<uint8_t, 10>, 6>;
 using Result = std::pair<Grid, int>;
@@ -12,7 +13,7 @@ public:
     ParkingClass();
     void displayParking();
     std::pair<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint8_t>>  findTheCarToPark();
-    Result findTheFirstPlaceToPark(uint8_t parking[6][10], int cpt, int x, int y);
+    Result findTheFirstPlaceToPark(Grid parking, int cpt, int x, int y);
 
 private:
     uint8_t parking[6][10];
